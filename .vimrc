@@ -1,5 +1,5 @@
 syntax enable
-filetype indent on
+filetype plugin indent on
 
 set mouse=a
 set autoindent
@@ -20,6 +20,8 @@ set encoding=utf-8
 set termencoding=utf-8
 set scrolloff=8
 set term=screen-256color
+
+set guifont=JetBrainsMono-Regular:h16
 
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
@@ -49,6 +51,8 @@ Plug 'gruvbox-community/gruvbox'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
+Plug 'vim-syntastic/syntastic'
+Plug 'rust-lang/rust.vim'
 call plug#end()
 
 
@@ -61,6 +65,7 @@ let mapleader=" "
 
 nnoremap <C-p> :Files<Cr>
 nnoremap <Leader>b :Buffers<Cr>
+nnoremap <Leader>e :Ex<Cr>
 vnoremap < <gv
 vnoremap > >gv
 
@@ -69,3 +74,8 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+
+" Rust
+let g:rustfmt_autosave = 1
+
