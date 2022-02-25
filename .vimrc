@@ -25,6 +25,8 @@ set guifont=JetBrainsMono-Regular:h16
 
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
+let g:netrw_preview = 1
+let g:netrw_winsize = 30
 
 " yank to clipboard
 if has("clipboard")
@@ -48,9 +50,11 @@ call plug#begin('~/.vim/plugged')
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-commentary'
 Plug 'gruvbox-community/gruvbox'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
+Plug 'dense-analysis/ale'
+Plug 'ycm-core/YouCompleteMe'
 Plug 'vim-syntastic/syntastic'
 Plug 'rust-lang/rust.vim'
 call plug#end()
@@ -58,12 +62,14 @@ call plug#end()
 
 " Colours
 set background=dark
-colorscheme gruvbox
+silent! colorscheme gruvbox
 
 nnoremap <SPACE> <Nop>
 let mapleader=" "
 
 nnoremap <C-p> :Files<Cr>
+nnoremap <C-g> :GFiles<Cr>
+nnoremap <C-f> :Rg 
 nnoremap <Leader>b :Buffers<Cr>
 nnoremap <Leader>e :Ex<Cr>
 vnoremap < <gv
@@ -75,7 +81,20 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" Comments
+noremap <leader>/ :Commentary<cr>
 
 " Rust
 let g:rustfmt_autosave = 1
 
+" ALE
+let b:ale_linters = {'python': ['flake8']}
+
+" YCM
+let g:ycm_python_interpreter_path = ''
+let g:ycm_python_sys_path = []
+let g:ycm_extra_conf_vim_data = [
+      \  'g:ycm_python_interpreter_path',
+  \  'g:ycm_python_sys_path'
+  \]
+let g:ycm_global_ycm_extra_conf = '~/global_extra_conf.py'
